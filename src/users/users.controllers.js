@@ -33,11 +33,11 @@ const findAllUsers = async() => await usersDB
 
 
 const findUserById = async(id) => {
-    const filteredUser = usersDB.find( user => {
-        return user.id === id
-    })
+  const filteredUser = usersDB.find( user => {
+      return user.id === id
+  })
 
-    return await filteredUser
+  return await filteredUser
 }
 
 const createUser = async(userObject) => {
@@ -55,16 +55,29 @@ const createUser = async(userObject) => {
     return await newUser
 }
 
-const putUser = async(UserToUpdate) => {
-  if(!usersDB.some( user => user.id === UserToUpdate.id )) return null
+const putUser = async(idUpdate, UserToUpdate) => {
+  if(!usersDB.some( user => user.id === idUpdate )) return null
 
   usersDB.forEach( (user, i, arr) => {
-    if( user.id === UserToUpdate.id ){
+    if( user.id === idUpdate ){
       arr[i] = UserToUpdate
     }
   })
 
   return await UserToUpdate
+}
+
+const patchUser = async(idPatch, userToPatch) => {
+  let index
+  const findUser = !usersDB.some( (user, i) => {
+    index = i
+    return user.id === idPatch
+  })
+  if( findUser ) return null
+
+  usersDB[index] = {...usersDB[index], ...userToPatch}
+
+  return await usersDB[index]
 }
 
 const deleteUser = async(idDelete) => {

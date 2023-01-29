@@ -26,16 +26,26 @@ const findUserById = (req, res) => {
 }
 
 const putUser = (req, res) => {
-  let user = req.body
+  const idUpdate = Number(req.params.id)
+  const user = req.body
   usersControllers
-    .putUser(user)
+    .putUser(idUpdate, user)
       .then( data => res.json( data ) )
       .catch( err => console.log(err) )
 }
 
+const patchUser = (req, res) => {
+  const idPatch = Number(req.params.id)
+  const user = req.body
+  usersControllers
+    .patchUser(idPatch, user)
+      .then( data => res.json( data ) )
+      .catch( err => res.json({message:err}) )
+}
+
 
 const deleteUser = (req, res) => {
-  const deletedId = req.body.id
+  const deletedId = Number(req.params.id)
   usersControllers
     .deleteUser(deletedId)
       .then( data => res.json( data ) )
@@ -47,5 +57,6 @@ module.exports = {
     findUserById,
     createUser,
     putUser,
+    patchUser,
     deleteUser
 }
