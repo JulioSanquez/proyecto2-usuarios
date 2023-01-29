@@ -5,7 +5,7 @@ const findAllUsers = (req, res) => {
   usersControllers
     .findAllUsers()
       .then( data => res.json(data) )
-      .catch( err => console.log(err) )
+      .catch( message => res.json({message}) )
 }
 
 const createUser = (req, res) => {
@@ -13,7 +13,7 @@ const createUser = (req, res) => {
   usersControllers
     .createUser(user)
       .then( data => res.status(201).json(data) )
-      .catch( err => console.log(err) )
+      .catch( message => res.json({message}) )
 }
 
 
@@ -22,7 +22,7 @@ const findUserById = (req, res) => {
   usersControllers
     .findUserById(userId)
       .then( data => res.json(data) )
-      .catch( err => console.log(err) )
+      .catch( message => res.json({message}) )
 }
 
 const putUser = (req, res) => {
@@ -31,7 +31,7 @@ const putUser = (req, res) => {
   usersControllers
     .putUser(idUpdate, user)
       .then( data => res.json( data ) )
-      .catch( err => console.log(err) )
+      .catch( ({message}) => res.json({message}) )
 }
 
 const patchUser = (req, res) => {
@@ -40,7 +40,7 @@ const patchUser = (req, res) => {
   usersControllers
     .patchUser(idPatch, user)
       .then( data => res.json( data ) )
-      .catch( err => res.json({message:err}) )
+      .catch( ({message}) => res.json({message}) )
 }
 
 
@@ -49,7 +49,7 @@ const deleteUser = (req, res) => {
   usersControllers
     .deleteUser(deletedId)
       .then( data => res.json( data ) )
-      .catch( err => console.log(err) )
+      .catch( ({message}) => res.json({message}) )
 }
 
 module.exports = {
