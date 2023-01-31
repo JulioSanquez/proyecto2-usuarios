@@ -31,7 +31,6 @@ let baseId = 3
 
 const findAllUsers = async() => await usersDB
 
-
 const findUserById = async(id) => {
   const filteredUser = usersDB.find( user => {
       return user.id === id
@@ -55,16 +54,17 @@ const createUser = async(userObject) => {
     return await newUser
 }
 
-const putUser = async(idUpdate, UserToUpdate) => {
-  if(!usersDB.some( user => user.id === idUpdate )) return null
-
-  usersDB.forEach( (user, i, arr) => {
-    if( user.id === idUpdate ){
-      arr[i] = UserToUpdate
-    }
+const updateUser = async(idUpdate, userToUpdate) => {
+  let index
+  const findUser = !usersDB.some( (user, i) => {
+    index = i
+    return user.id === idUpdate
   })
+  if( findUser ) return null
 
-  return await UserToUpdate
+  usersDB[index] = {...usersDB[index], ...userToUpdate}
+
+  return await usersDB[index]
 }
 
 const patchUser = async(idPatch, userToPatch) => {
@@ -93,7 +93,7 @@ module.exports = {
     findAllUsers,
     findUserById,
     createUser,
-    putUser,
+    updateUser,
     patchUser,
     deleteUser
 }
