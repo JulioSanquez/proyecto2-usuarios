@@ -54,11 +54,11 @@ const createUser = async(userObject) => {
     return await newUser
 }
 
-const updateUser = async(idUpdate, userToUpdate) => {
+const updateUser = async(idToUpdate, userToUpdate) => {
   let index
   const findUser = !usersDB.some( (user, i) => {
     index = i
-    return user.id === idUpdate
+    return user.id === idToUpdate
   })
   if( findUser ) return null
 
@@ -67,11 +67,11 @@ const updateUser = async(idUpdate, userToUpdate) => {
   return await usersDB[index]
 }
 
-const patchUser = async(idPatch, userToPatch) => {
+const patchUser = async(idToPatch, userToPatch) => {
   let index
   const findUser = !usersDB.some( (user, i) => {
     index = i
-    return user.id === idPatch
+    return user.id === idToPatch
   })
   if( findUser ) return null
 
